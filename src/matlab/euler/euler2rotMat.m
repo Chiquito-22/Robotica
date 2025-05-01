@@ -11,7 +11,11 @@ phi = euler(1,:);      % phi:   rotación alrededor del eje X
 theta = euler(2,:);    % theta: rotación alrededor del eje Y
 psi = euler(3,:);      % psi:   rotación alrededor del eje Z
 if secuencia == "XYZ"
+<<<<<<< HEAD
     R = Rx(phi) * Ry(theta) * Rz(psi);
 else
     error('Secuencia de rotación no implementada.');
+=======
+    R = Rx(phi)*Ry(theta)*Rz(psi);
+>>>>>>> 819eefc5a62cfcd4c057ce6ba022a87a051ac44e
 end
