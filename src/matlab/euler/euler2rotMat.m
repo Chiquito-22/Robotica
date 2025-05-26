@@ -14,4 +14,5 @@ if secuencia == "XYZ"
     R = Rx(phi) * Ry(theta) * Rz(psi);
 else
     error('Secuencia de rotación no implementada.');
+
 end

@@ -1,0 +1,87 @@
+\section{ROBOT 2}
+\subsection{Sensores internos de posición lineal o rotativo}
+Los sensores internos de posición son dispositivos que permiten medir el desplazamiento lineal o angular de un componente dentro de un sistema mecánico o robótico. Su función principal es proporcionar información sobre la ubicación de un eje o una pieza móvil, lo que permite controlar su movimiento con precisión. Se utilizan en motores, actuadores y mecanismos que requieren un control exacto de la posición.
+
+\begin{itemize}
+\item \textbf{Encoder incremental}: Un encoder incremental es un sensor de posición que genera pulsos a medida que el eje se mueve. Estos pulsos permiten determinar la velocidad y el desplazamiento relativo de un objeto, pero no su posición absoluta. Para conocer la posición, se necesita un punto de referencia inicial. Son ampliamente utilizados en aplicaciones de control de motores y automatización industrial.
+\item \textbf{Encoder absoluto}: El encoder absoluto es un sensor que proporciona una señal de salida única para cada posición del eje, permitiendo conocer la ubicación exacta en cualquier momento sin necesidad de un punto de referencia inicial. Existen encoders absolutos de una sola vuelta y de múltiples vueltas, los cuales pueden registrar posiciones dentro de un rango específico o a lo largo de varias revoluciones del eje.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=10 cm]{img/EncoderAb}
+	\caption{Imagen de un encoder absoluto}
+	\label{fig:EncoderAb}
+\end{figure}
+\item \textbf{Potenciómetro}: El potenciómetro es un sensor de posición que funciona como un divisor de voltaje variable. Su salida depende de la posición de un contacto deslizante sobre una resistencia, lo que permite medir desplazamientos angulares o lineales. Son dispositivos simples y de bajo costo, pero tienen limitaciones en términos de desgaste mecánico y precisión a largo plazo.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=4 cm]{img/Pot}
+	\caption{Imagen de un Potenciometro}
+	\label{fig:Pot}
+\end{figure}
+\item \textbf{LVDT}: El LVDT es un transductor electromagnético que mide desplazamientos lineales sin contacto mecánico directo. Funciona mediante la variación de un campo electromagnético generado por una bobina primaria y dos bobinas secundarias, cuya señal de salida es proporcional al desplazamiento del núcleo móvil. Se utilizan en aplicaciones donde se requiere alta precisión y fiabilidad, como en la medición de vibraciones y control de maquinaria.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=10 cm]{img/LVDT}
+	\caption{Imagen de un LVDT}
+	\label{fig:LVDT}
+\end{figure}
+\item \textbf{Resólver }: Un resólver es un sensor de posición rotativo basado en principios electromagnéticos. Funciona de manera similar a un transformador y proporciona señales de salida analógicas que representan la posición angular del eje. Es altamente resistente a condiciones extremas como vibraciones, temperaturas altas y humedad, por lo que se usa en sistemas de control de motores en entornos industriales y aeroespaciales.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=10 cm]{img/Resolver}
+	\caption{Imagen de un Resolver}
+	\label{fig:Resolver}
+\end{figure}
+\end{itemize}
+
+\subsection{Sensores internos de velocidad}
+Los sensores internos de velocidad son dispositivos que miden la velocidad de un objeto en movimiento, ya sea en un desplazamiento lineal o rotativo. Estos sensores convierten la velocidad en una señal eléctrica que puede ser utilizada para monitoreo, control y retroalimentación en sistemas mecánicos, motores y robots. Se emplean en aplicaciones como la regulación de motores eléctricos, el control de máquinas industriales y la automatización de procesos.
+
+
+\begin{itemize}
+	\item \textbf{Tacometro}: Un encoder incremental es un sensor de posición que genera pulsos a medida que el eje se mueve. Estos pulsos permiten determinar la velocidad y el desplazamiento relativo de un objeto, pero no su posición absoluta. Para conocer la posición, se necesita un punto de referencia inicial. Son ampliamente utilizados en aplicaciones de control de motores y automatización industrial.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=4 cm]{img/Taco}
+		\caption{Imagen de un tacometro}
+		\label{fig:Taco}
+	\end{figure}
+	\item \textbf{Sensor de efecto Hall}: Un sensor de efecto Hall es un dispositivo que detecta la presencia y variación de un campo magnético. Funciona con base en el efecto Hall, que genera un voltaje proporcional a la intensidad del campo magnético aplicado. Se utiliza en aplicaciones como la medición de posición, velocidad, corriente eléctrica y detección de objetos metálicos en movimiento. Es ampliamente empleado en encoders magnéticos, tacómetros, sensores de proximidad y sistemas de control de motores eléctricos.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8 cm]{img/Hall}
+		\caption{Imagen de un sensor de efecto Hall}
+		\label{fig:Hall}
+	\end{figure}
+\end{itemize}\newpage
+\subsection{Sensores internos de aceleración}
+Los sensores internos de aceleración son dispositivos que miden la tasa de cambio de velocidad de un objeto en uno o más ejes, expresada en metros por segundo al cuadrado (m/s²) o gravedades (g). Se utilizan en navegación, estabilización de robots, automóviles y dispositivos electrónicos.
+
+Su funcionamiento se basa en distintos principios físicos. Los acelerómetros piezoeléctricos generan una carga eléctrica proporcional a la aceleración, mientras que los capacitivos MEMS detectan cambios en la capacitancia entre placas móviles y fijas. Los ópticos miden la variación en la posición de un haz de luz y los basados en efecto Hall registran cambios en campos magnéticos.
+Entre sus aplicaciones destacan los sistemas de navegación inercial en vehículos autónomos, la estabilización de robots y drones, el despliegue de airbags en automóviles, el monitoreo de vibraciones en maquinaria y la detección de movimiento en videojuegos. Estos sensores son esenciales en la robótica y automatización, mejorando la precisión y estabilidad en el control de movimiento.
+
+\subsection{Sensores internos de fuerza}
+Los sensores internos de fuerza son dispositivos diseñados para medir la magnitud de una fuerza aplicada a un objeto. Convierten la deformación mecánica en una señal eléctrica proporcional a la fuerza ejercida. Se utilizan en robótica, automatización industrial, control de procesos y monitoreo estructural.
+\begin{itemize}
+	\item \textbf{Galgas extensométricas}:Las galgas extensométricas son sensores que miden la deformación de un material cuando se le aplica una fuerza. Funcionan mediante una resistencia eléctrica que cambia de valor al elongarse o comprimirse. Son ampliamente utilizadas en celdas de carga, análisis de tensión en estructuras y pruebas de materiales.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=5 cm]{img/Galga}
+		\caption{Imagen de una galga extensométrica}
+		\label{fig:Galga}
+	\end{figure}
+	\item \textbf{Interruptores de efecto Hall}: Los interruptores de efecto Hall son dispositivos que detectan la presencia de un campo magnético y generan una señal de encendido o apagado. Funcionan sin contacto mecánico, por lo que son altamente duraderos. Se emplean en aplicaciones como detección de posición, seguridad en maquinaria y control de velocidad en motores eléctricos.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=10 cm]{img/Ihall}
+		\caption{Imagen de interruptores de efecto Hall}
+		\label{fig:ihall}
+	\end{figure}
+	\item \textbf{Interruptores piezoeléctricos }: Los interruptores piezoeléctricos operan aprovechando el efecto piezoeléctrico, donde ciertos materiales generan una carga eléctrica cuando se someten a presión mecánica. Son resistentes y no requieren partes móviles, lo que los hace ideales para aplicaciones de alta durabilidad como teclados industriales, botones táctiles y sistemas de control sensibles a la presión.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=8 cm]{img/ipiez}
+		\caption{Imagen de interruptores piezoeléctricos}
+		\label{fig:ipiez}
+	\end{figure}\newpage
+\end{itemize}
