@@ -1,5 +1,5 @@
 \section{Control}
-Si quieren, pueden comentar esta parte, pero si quieren, expliquen el diagrama de bloques de la \autoref{fig:diagrama-de-robot-industrial}.
+El control es el proceso mediante el cual se regula el comportamiento de un robot para que siga la trayectoria y cumpla la función deseada con precisión. Esto se logra comparando, en tiempo real, la señal de salida por ejemplo, la posición real del efector con la señal de referencia o la posición deseada. La diferencia entre ambas se conoce como error, y este se procesa mediante algoritmos que generan una señal de control ya sea en forma de torque, fuerza o voltaje para corregir las desviaciones en el movimiento. Estos algoritmos pueden ser de distintos tipos, como el controlador PID, control robusto, adaptativo, entre otros, y están diseñados para compensar perturbaciones, efectos de fricción y variaciones en la dinámica del sistema.
 
 \begin{figure}[h]
 	\centering
@@ -7,3 +7,17 @@ Si quieren, pueden comentar esta parte, pero si quieren, expliquen el diagrama d
 	\caption{Diagrama de bloques de un robot industrial}
 	\label{fig:diagrama-de-robot-industrial}
 \end{figure}
+
+\subsubsection{Diagrama de bloques del sistema de control}
+
+Para entender y diseñar un sistema de control, se utiliza el diagrama de bloques, el cual divide el proceso en módulos funcionales que muestran la interacción y flujo de información entre cada parte del sistema. Una representación simplificada incluye:
+
+1. Entrada o Señal de Referencia: Aquí se definen las señales deseadas, como la posición, velocidad o trayectoria del robot, estableciendo el objetivo a alcanzar.
+
+2. Planificación y Cinemática: En este bloque se transforma la señal de referencia en objetivos concretos para el robot. Se utilizan modelos de cinemática directa e inversa para traducir las coordenadas del espacio de trabajo a variables articulares, determinando así las posiciones que deben alcanzar las juntas del robot.
+
+3. Controlador: Es el núcleo del sistema. Recibe la señal de error (la diferencia entre la salida real y la deseada) y, mediante algoritmos de control, calcula la señal necesaria para corregir la desviación. Este bloque garantiza un movimiento suave y preciso, ajustando continuamente la acción de los actuadores.
+
+4. Actuadores: Los actuadores son los elementos responsables de transformar la señal de control en movimiento físico. Por ejemplo, los motores reciben la señal y generan el torque o la fuerza necesaria para mover las articulaciones.
+
+5. Retroalimentación: Los sensores ubica este bloque. Su función es medir parámetros críticos (posición, velocidad, aceleración) del robot y enviar estos datos de vuelta al controlador para mantener un lazo cerrado. Esta retroalimentación es esencial para corregir errores y adaptarse a cambios o perturbaciones en el entorno.

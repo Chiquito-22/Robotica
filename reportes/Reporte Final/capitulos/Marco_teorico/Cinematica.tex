@@ -1,14 +1,22 @@
 \section{Cinemática} \label{sec:cinematica}
 
-Explicar su definición en base a lo que viene en libros o de los archivos de Matlab. Diferenciar entre \textbf{Cinemática directa} y \textbf{Cinemática inversa}.
-Para el proceso sobre cómo se llevó a cabo el algoritmo en Matlab, ir a la  \hyperref[sec:proceso_cinematica]{sección del proceso de Cinemática}.
+La cinemática es la rama de la robótica que se encarga de describir el movimiento de los cuerpos o de los eslabones de un robot sin considerar las causas que lo generan como las fuerzas. Se centra en la representación geométrica del movimiento, permitiendo determinar la posición, orientación, velocidades y aceleraciones de un sistema. En robótica, este estudio se divide en dos grandes enfoques:
+
+Cinemática directa: Calcula la posición y orientación del efector final del robot a partir de un conjunto de variables articulares conocidas.
+
+Cinemática inversa: Realiza el proceso inverso, es decir, a partir de una posición y orientación deseadas se determinan los valores de las variables articulares; sin embargo, este proceso suele presentar dificultades como la existencia de múltiples soluciones o casos en que la configuración deseada no es alcanzable.
+
 
 \subsection{Cinemática Directa}
-Explicar sobre la definición geométrica usando Denavit Hartenberg con el algoritmo y las matemáticas.
+La cinemática directa se basa en el análisis geométrico del robot para determinar la posición y orientación del efector final, dado un conjunto de parámetros articulares ángulos o desplazamientos. Uno de los métodos más estandarizados en robótica es el modelo de Denavit-Hartenberg. Este método propone asignar sistemáticamente un sistema de coordenadas a cada eslabón del robot y establecer, a partir de cuatro parámetros característicos:
+θ (theta): Ángulo de rotación alrededor del eje z.
+d: Desplazamiento a lo largo del eje z.
+a: Longitud del eslabón (desplazamiento a lo largo del eje x).
+α (alpha): Ángulo de torsión en torno al eje x.
 
 \subsection{Cinemática Diferencial}
-Aquí explicarán sobre el jacobiano para la cinemática diferencial.
+La cinemática diferencial se ocupa del estudio de las relaciones entre las velocidades articulares y la velocidad del efector final. Su principal herramienta es el jacobiano, una matriz que se obtiene derivando las ecuaciones de la cinemática directa con respecto a las variables articulares. Matemáticamente, si se tiene una función vectorial   p = f(q) que relaciona la posición y, en ocasiones, la orientación del efector final con el vector de variables articulares q.
 
 \subsection{Cinemática Inversa}
-Explicar su definición y cómo se relaciona el gradiente con el jacobiano. Cabe destacar que existen multitud de métodos y en mi clase solo usaron un método, pero aquí pueden explicar las imágenes que vienen en Matlab.
+La cinemática inversa se encarga de calcular los valores de las variables articulares que hacen que el robot alcance una posición y orientación específicas. A diferencia de la cinemática directa, el problema inverso suele ser no lineal y puede presentar múltiples soluciones o, en algunas ocasiones, ninguna solución viable. Para abordar esta complejidad se recurre a métodos numéricos que, en general, se basan en técnicas de optimización.
 

@@ -1,24 +1,23 @@
 \section{Dinámica} \label{sec:dinamica}
 
-La verdad, no les expliqué mucho sobre esta unidad, pero pueden hablar sobre las ecuaciones que vienen en el powerpoint (el cual subí tarde porque se me corrompió)
-
-Hablen sobre el modelo dinámico estandar de un robot, la matriz de masa o inercia, la matriz de coriolis y el vector de gravedad. 
-
+El modelo dinámico de un robot se basa en la formulación de las ecuaciones que relacionan las aceleraciones articulares con las fuerzas y pares aplicados.
 \subsection{Matriz de masa o inercia}
-Expliquen cómo el vector de masa o inercia define la aceleración máxima.
+Esta matriz depende de la configuración del robot y representa la distribución de masa e inercia de cada eslabón. En esencia, M(q) determina la aceleración máxima alcanzable, ya que una mayor inercia implica que, para un par dado, la aceleración será relativamente menor. Es decir, los motores deben generar suficiente fuerza para superar la resistencia inercial presente en la estructura.
 
 \subsection{Matriz de coriolis}
+Los términos de Coriolis surgen por la interacción de velocidades articulares y la distribución de masa en movimiento. Esta matriz capta las fuerzas dinámicas que acoplan el movimiento de diferentes articulaciones, permitiendo compensar los efectos que estas interacciones provocan en la trayectoria y estabilidad del robot.
 
 \subsection{Vector de gravedad}
-
-Expliquen por qué el vector de gravedad en su valor máximo (cuando el robot está extendido horizontalmente) debe ser contrarrestado con la fuerza de cada motor
+Este vector incluye los efectos gravitatorios sobre cada articulación, en función de la posición del robot. Cuando el robot se extiende horizontalmente, la componente gravitatoria alcanza su valor máximo, por lo que cada motor debe contrarrestar estas fuerzas para mantener o lograr la posición deseada sin colapsos o desviaciones.
 
 \subsection{Fricción}
-Expliquen qué es la fricción en general.
+La fricción es la resistencia que se opone al movimiento entre dos superficies en contacto y es un fenómeno omnipresente en sistemas mecánicos, incluidos los robots. Su correcta modelación es fundamental para garantizar la precisión y estabilidad en el control y simulación de manipuladores. A continuación, se detallan los dos tipos principales:
 
 \subsubsection{Fricción estática o seca}
+Esta es la fuerza que debe superarse para iniciar el movimiento entre dos superficies en reposo. En un robot, cuando los eslabones o actuadores están quietos, la fricción estática impide el deslizamiento hasta que la fuerza aplicada supera un umbral. Generalmente es mayor que la fricción dinámica, lo que implica que los motores deben generar un esfuerzo inicial considerable para activar el movimiento.
 
 \subsubsection{Fricción dinámica o viscosa}
+Una vez que se inicia el movimiento, la fricción cambia de comportamiento y pasa a ser dinámica. Se caracteriza por ser proporcional a la velocidad relativa de las superficies en contacto, es decir, a medida que el robot se mueve más rápidamente, la fuerza viscosa aumenta linealmente (en muchos casos) y actúa como un amortiguador. Este tipo de fricción es crucial en la modelación dinámica, ya que un control inadecuado puede provocar oscilaciones, errores en la trayectoria o inestabilidad en el movimiento.
 
 \subsection{Perturbaciones}
-Aquí expliquen qué es una perturbación en general sin profundizar mucho.
+Se considera cualquier influencia externa o interna imprevista como vibraciones, cambios en el entorno o errores de modelado que puede alterar el desempeño del robot. Aunque se trata de aspectos generales, su presencia requiere el diseño de controladores robustos para minimizar su impacto.
