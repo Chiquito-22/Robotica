@@ -1,0 +1,4 @@
+muevelo
+/home/chiquito22/Robotica/devel/.private/muevelo/lib/pkgconfig/muevelo.pc /home/chiquito22/Robotica/devel/lib/pkgconfig/muevelo.pc
+/home/chiquito22/Robotica/devel/.private/muevelo/share/muevelo/cmake/mueveloConfig.cmake /home/chiquito22/Robotica/devel/share/muevelo/cmake/mueveloConfig.cmake
+/home/chiquito22/Robotica/devel/.private/muevelo/share/muevelo/cmake/mueveloConfig-version.cmake /home/chiquito22/Robotica/devel/share/muevelo/cmake/mueveloConfig-version.cmake

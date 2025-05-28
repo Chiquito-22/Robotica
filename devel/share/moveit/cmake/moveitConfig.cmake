@@ -1,0 +1,1 @@
+/home/chiquito22/Robotica/devel/.private/moveit/share/moveit/cmake/moveitConfig.cmake

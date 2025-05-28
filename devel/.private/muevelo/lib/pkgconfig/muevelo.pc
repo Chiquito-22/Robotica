@@ -1,0 +1,8 @@
+prefix=/home/chiquito22/Robotica/devel/.private/muevelo
+
+Name: muevelo
+Description: Description of muevelo
+Version: 0.3.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

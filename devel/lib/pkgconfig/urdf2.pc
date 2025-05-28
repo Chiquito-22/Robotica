@@ -1,0 +1,1 @@
+/home/chiquito22/Robotica/devel/.private/urdf2/lib/pkgconfig/urdf2.pc

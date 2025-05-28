@@ -1,0 +1,4 @@
+turtle_control
+/home/chiquito22/Robotica/devel/.private/turtle_control/lib/pkgconfig/turtle_control.pc /home/chiquito22/Robotica/devel/lib/pkgconfig/turtle_control.pc
+/home/chiquito22/Robotica/devel/.private/turtle_control/share/turtle_control/cmake/turtle_controlConfig.cmake /home/chiquito22/Robotica/devel/share/turtle_control/cmake/turtle_controlConfig.cmake
+/home/chiquito22/Robotica/devel/.private/turtle_control/share/turtle_control/cmake/turtle_controlConfig-version.cmake /home/chiquito22/Robotica/devel/share/turtle_control/cmake/turtle_controlConfig-version.cmake

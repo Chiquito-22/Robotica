@@ -1,0 +1,4 @@
+moveit
+/home/chiquito22/Robotica/devel/.private/moveit/lib/pkgconfig/moveit.pc /home/chiquito22/Robotica/devel/lib/pkgconfig/moveit.pc
+/home/chiquito22/Robotica/devel/.private/moveit/share/moveit/cmake/moveitConfig-version.cmake /home/chiquito22/Robotica/devel/share/moveit/cmake/moveitConfig-version.cmake
+/home/chiquito22/Robotica/devel/.private/moveit/share/moveit/cmake/moveitConfig.cmake /home/chiquito22/Robotica/devel/share/moveit/cmake/moveitConfig.cmake
