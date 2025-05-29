@@ -1,3 +1,5 @@
 \section{Control} \label{sec:control}
-Algún día lograré explicar bien el Control de su robot, pero este semestre no será supongo. Así que pueden comentar el input de esta parte, pero igual pueden intentar explicar esto.
 
+El control del brazo robótico se gestiona mediante comandos enviados desde el entorno de simulación a través de ROS. Aunque en esta etapa no se implementó un controlador sofisticado, el sistema permite mover los motores a posiciones específicas usando entradas predefinidas o manuales. Esto se logra principalmente mediante el uso de mensajes tipo \texttt{JointState} y controladores de posición simples.
+
+En esta versión del proyecto, el enfoque principal fue probar la cinemática y la respuesta de los eslabones en la simulación. Por ello, el control más avanzado, como la retroalimentación o control PID, se dejó fuera de alcance, aunque la arquitectura está preparada para integrarlo posteriormente.

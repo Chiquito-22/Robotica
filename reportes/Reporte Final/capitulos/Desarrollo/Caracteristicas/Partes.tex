@@ -1,6 +1,223 @@
 \subsection{Partes} \label{subsec:partes}
-Aquí pondrán la información de las piezas del robot. Pueden eliminar las siguientes subsecciones y simplemente explicar los motores usados y el material de los eslabones porque ya no hay tiempo.
+En esta sección se describen los componentes físicos principales que conforman el brazo robótico, incluyendo los eslabones que definen su estructura mecánica. Se detallan las propiedades de cada eslabón como masa, dimensiones e inercia fundamentales para el análisis dinámico, así como el tipo de motor empleado para el control del sistema.
+
 \subsubsection{Motores} \label{subsubsec:motores}
-Explicarán cuál es el motor que usaron, harán referencia a la hoja de datos, así como las transmisiones (por ejemplo, las de las pinzas) o reductores de velocidad a los que están acoplados. Deben de poner también información como: masa, fuerza o torque máximo, razón de reducción (por ejemplo, 10/1) y la velocidad máxima.
+El motor seleccionado para accionar el sistema robótico es un motor paso a paso NEMA 23 acoplado a un reductor planetario con una relación de reducción 20:1. Este conjunto permite obtener un alto torque con buena precisión y retención de posición, lo cual lo hace adecuado para manipuladores robóticos, pinzas, plataformas elevadoras, entre otros.
+
+\textbf{Características del motor:}
+
+\begin{itemize}
+	\item Tipo: Motor paso a paso NEMA 23
+	\item Voltaje nominal: 24 VDC
+	\item Controladores compatibles: DRV8825, DM542 u otros controladores industriales
+	\item Modelo de referencia típico: \texttt{57HS11240} (varía según fabricante)
+\end{itemize}
+
+\begin{table}[H]
+	\centering
+	\caption{Parámetros eléctricos y mecánicos típicos del motor}
+	\begin{tabular}{|l|c|}
+		\hline
+		\textbf{Parámetro} & \textbf{Valor típico} \\
+		\hline
+		Corriente por fase & 2.8 A \\
+		Resistencia por fase & 1.1 $\Omega$ \\
+		Inductancia por fase & 2.5 mH \\
+		Ángulo de paso & 1.8$^\circ$ por paso (200 pasos/rev) \\
+		Longitud del motor (sin reductor) & 112 mm \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\textbf{Reductor Planetario:}
+
+\begin{itemize}
+	\item Tipo: Planetario
+	\item Relación de reducción: 20:1
+	\item Eficiencia típica: 85–90\%
+	\item Configuración: Acoplado directamente al eje del motor
+\end{itemize}
+
+\textbf{Especificaciones del conjunto motor + reductor:}
+
+\begin{table}[H]
+	\centering
+	\caption{Especificaciones del sistema motor-reductor}
+	\begin{tabular}{|l|c|}
+		\hline
+		\textbf{Especificación} & \textbf{Valor típico} \\
+		\hline
+		Torque de salida (máx.) & 15–25 N$\cdot$m \\
+		Velocidad máx. del eje de salida & 60–100 RPM \\
+		Masa del conjunto motor + reductor & 1.5–2.5 kg \\
+		Torque nominal sin reducción & 1.2–1.8 N$\cdot$m \\
+		Torque nominal con reducción & 20 N$\cdot$m \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\textbf{Aplicaciones típicas del conjunto:}
+
+Este tipo de sistema es ideal para mecanismos que requieren alto torque, precisión y bajo juego mecánico. Entre las aplicaciones comunes se encuentran:
+
+\begin{itemize}
+	\item \textbf{Pinzas robóticas de alto torque:} permite abrir/cerrar pinzas con fuerza suficiente para sujetar objetos pesados con precisión.
+	\item \textbf{Articulaciones de brazos robóticos:} útil en ejes que requieren retención de posición y alta capacidad de carga.
+	\item \textbf{Plataformas elevadoras (eje Z):} usadas en impresoras 3D o sistemas CNC para levantar peso con estabilidad.
+	\item \textbf{Puertas automáticas o compuertas:} para apertura controlada de elementos pesados con posición definida.
+	\item \textbf{Sistemas de indexado o posicionamiento rotacional:} como torretas o selectores que necesitan precisión angular.
+	\item \textbf{Transportadores por pasos:} en líneas de producción para avanzar piezas o productos con control.
+	\item \textbf{Equipos de laboratorio o automatización de pruebas:} mecanismos que requieren movimientos repetibles y exactos.
+	\item \textbf{Robots móviles lentos de alta tracción:} ideal si se acopla directamente a ruedas para superar obstáculos o cargar peso.
+\end{itemize}
+
 \subsubsection{Eslabones} \label{subsubsec:eslabones}
-Pondrán la masa, inercia, longitud y material de cada eslabón.
+
+{Eslabón 1 (Material ABS)}
+
+\begin{table}[H]
+	\centering
+	\caption{Propiedades físicas del eslabón 1}
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Propiedad} & \textbf{Valor} \\
+		\hline
+		Masa & 240.72 g \\
+		Volumen & 236.00 cm\textsuperscript{3} \\
+		Centro de masa (X, Y, Z) & (-27.35, -16.61, 12.47) cm \\
+		Momento principal de inercia Ix & 2231.50 g·cm\textsuperscript{2} \\
+		Momento principal de inercia Iy & 2477.76 g·cm\textsuperscript{2} \\
+		Momento principal de inercia Iz & 2805.93 g·cm\textsuperscript{2} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\begin{equation*}
+	I =
+	\begin{bmatrix}
+		I_{xx} & I_{xy} & I_{xz} \\
+		I_{yx} & I_{yy} & I_{yz} \\
+		I_{zx} & I_{zy} & I_{zz}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		105656.56 & 109046.02 & -49840.02 \\
+		109046.02 & 220247.51 & -82063.72 \\
+		-49840.02 & -82063.72 & 248673.42
+	\end{bmatrix}
+	\text{ g·cm}^2
+\end{equation*}
+
+{Eslabón 2 (Material ABS)}
+
+
+\begin{table}[H]
+	\centering
+	\caption{Propiedades físicas del eslabón 2}
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Propiedad} & \textbf{Valor} \\
+		\hline
+		Masa & 364.20 g \\
+		Volumen & 357.06 cm\textsuperscript{3} \\
+		Centro de masa (X, Y, Z) & (-25.61, 18.17, 20.36) cm \\
+		Momento principal de inercia Ix & 2945.33 g·cm\textsuperscript{2} \\
+		Momento principal de inercia Iy & 15867.55 g·cm\textsuperscript{2} \\
+		Momento principal de inercia Iz & 17191.14 g·cm\textsuperscript{2} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\begin{equation*}
+	I =
+	\begin{bmatrix}
+		I_{xx} & I_{xy} & I_{xz} \\
+		I_{yx} & I_{yy} & I_{yz} \\
+		I_{zx} & I_{zy} & I_{zz}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		286452.07 & 168862.60 & -185833.18 \\
+		168862.60 & 405192.78 & -138453.52 \\
+		-185833.18 & -138453.52 & 364732.16
+	\end{bmatrix}
+	\text{ g·cm}^2
+\end{equation*}
+
+{Eslabón 3 (Material ABS)}
+
+
+
+\begin{table}[H]
+	\centering
+	\caption{Propiedades físicas del eslabón 3}
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Propiedad} & \textbf{Valor} \\
+		\hline
+		Masa & 201.46 g \\
+		Volumen & 197.51 cm\textsuperscript{3} \\
+		Centro de masa (X, Y, Z) & (-19.40, 23.77, 23.96) cm \\
+		Momento principal de inercia Ix & 843.13 g·cm\textsuperscript{2} \\
+		Momento principal de inercia Iy & 6443.82 g·cm\textsuperscript{2} \\
+		Momento principal de inercia Iz & 6626.98 g·cm\textsuperscript{2} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\begin{equation*}
+	I =
+	\begin{bmatrix}
+		I_{xx} & I_{xy} & I_{xz} \\
+		I_{yx} & I_{yy} & I_{yz} \\
+		I_{zx} & I_{zy} & I_{zz}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		243424.19 & 91942.14 & -95763.87 \\
+		91942.14 & 196625.63 & -112765.88 \\
+		-95763.87 & -112765.88 & 193369.52
+	\end{bmatrix}
+	\text{ g·cm}^2
+\end{equation*}
+
+{Eslabón 4 (Material ABS)}
+
+
+\begin{table}[H]
+	\centering
+	\caption{Propiedades físicas del eslabón 4}
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Propiedad} & \textbf{Valor} \\
+		\hline
+		Masa & 57.87 g \\
+		Volumen & 56.74 cm\textsuperscript{3} \\
+		Centro de masa (X, Y, Z) & (12.40, 28.60, 18.40) cm \\
+		Momento principal de inercia Ix & 124.16 g·cm\textsuperscript{2} \\
+		Momento principal de inercia Iy & 303.58 g·cm\textsuperscript{2} \\
+		Momento principal de inercia Iz & 319.25 g·cm\textsuperscript{2} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\begin{equation*}
+	I =
+	\begin{bmatrix}
+		I_{xx} & I_{xy} & I_{xz} \\
+		I_{yx} & I_{yy} & I_{yz} \\
+		I_{zx} & I_{zy} & I_{zz}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		67171.53 & 23122.22 & -14973.04 \\
+		23122.22 & 31166.63 & -30427.44 \\
+		-14973.04 & -30427.44 & 59012.79
+	\end{bmatrix}
+	\text{ g·cm}^2
+\end{equation*}
+

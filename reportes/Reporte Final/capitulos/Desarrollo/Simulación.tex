@@ -1,2 +1,23 @@
 \section{Simulación} \label{sec:simulacion}
-Aquí pueden de forma resumida los pasos que vienen en el tutorial. Pueden hacer referencia a \href{https://github.com/IvanMedinaGL/Robotica}{mi repositorio} \cite{medinagl_robotica}. Sería la parte de dónde obtuvieron el modelo del robot, cómo lo exportaron de \textit{SolidWorks} a \textit{URDF}, cómo usaron \textit{Ubuntu}, ya sea con una máquina virtual (como \textit{VirtualBox}) o con \textit{Windows Subsystem for Linux} (WSL), cómo simularon que las dos pinzas se muevan al mismo tiempo, si le metieron electroimán o lo intentaron y cómo, el cómo cambiaron los controladores, cómo lo ejecutaron y las herramientas necesarias (como RViz, Gazebo, MoveIt...), etc.
+
+
+Para exportar un brazo robótico de 4 ejes diseñado en \textit{SolidWorks} a \textit{URDF} y poder simularlo en \textit{Gazebo}, primero es necesario tener instalado el plugin \texttt{sw\_urdf\_exporter}, que permite convertir ensamblajes de \textit{SolidWorks} directamente a archivos \textit{URDF} compatibles con \textit{ROS} y \textit{Gazebo}. Una vez instalado, se debe preparar correctamente el ensamble en \textit{SolidWorks}: todas las piezas deben estar bien unidas, y es importante definir correctamente las uniones o \textit{joints} entre los eslabones del brazo, especificando qué tipo de articulación es (por ejemplo, \textit{revolute} o \textit{fixed}) según corresponda para cada uno de los 4 ejes. También es necesario asignar correctamente los sistemas de coordenadas locales y asegurarse de que los ejes de rotación estén bien orientados.
+
+Después, desde el plugin, se configuran las propiedades de cada \textit{link}, incluyendo nombre, tipo de unión, límites de movimiento y, si se desea, propiedades físicas como masa o fricción. Al completar la configuración, el plugin exporta el modelo como un archivo \textit{URDF} junto con una carpeta que contiene las mallas \texttt{.STL} de cada parte del brazo.
+
+Nuestra forma de utilizar Ubuntu fue la siguiente:
+\begin{center}
+	\includegraphics[height=10cm]{UBUNTU.jpg} \\
+
+\noindent\parbox{\linewidth}{
+	Intentamos incorporar un electroimán al extremo del brazo, ya que su geometría se adapta mejor a la función que desempeña el robot. Sin embargo, surgieron varios inconvenientes durante la simulación en \textit{Gazebo}. Uno de los principales problemas fue que el electroimán aparecía desalineado respecto al último \textit{joint} del robot, como si estuviera flotando o desconectado. Además, al ejecutar la simulación, el componente generaba oscilaciones anómalas que afectaban la estabilidad del sistema. Estas anomalías pueden deberse a una configuración incorrecta en la unión entre el electroimán y el último eslabón, o a errores en la definición de masas, inercia o colisiones dentro del archivo \textit{URDF}.
+}
+
+\vspace{0.5em}
+
+\noindent\parbox{\linewidth}{
+	Para mitigar estos problemas, se consideró modificar la ubicación y el tipo de unión del electroimán dentro del archivo \textit{URDF}, verificando su posición relativa respecto al último \textit{link}. También se ajustaron manualmente los parámetros de inercia y colisión, utilizando primitivas geométricas más simples en lugar de mallas complejas, con el objetivo de mejorar la estabilidad numérica durante la simulación en \textit{Gazebo}.
+}
+
+
+

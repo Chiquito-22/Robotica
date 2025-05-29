@@ -1,4 +1,56 @@
 \chapter{Resultados} \label{chap:resultados}
-Aquí pondrán las gráficas que obtuvieron en la simulación de matlab para el robot (si las tienen), y las explicarán.
 
-También mostrarán capturas de pantalla de cómo se ve en Gazebo el robot y en RViz, ya sea que funcione o no, para el cambio de trayectoria. Describirán lo que ocurre y por qué (si es que saben).
+
+Las siguientes gráficas representan los resultados obtenidos a partir del análisis de la cinemática del brazo robótico. La gráfica de cinemática inversa muestra cómo, a partir de una posición deseada del efector final, se calculan los ángulos articulares necesarios para alcanzar dicha posición. Por otro lado, la cinemática directa permite determinar la ubicación del efector final cuando se conocen los ángulos de cada articulación. Finalmente, la cinemática diferencial refleja cómo varían las velocidades articulares para producir un movimiento deseado en el efector, lo cual resulta fundamental para la implementación de esquemas de control en tiempo real dentro de la simulación.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{cin inversa.jpg}
+	\caption{Resultado Cinemática Inversa (Gráficas).}
+	\label{fig:CINEMÁTICA INVERSA}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{cin directa.jpg}
+	\caption{Resultado Cinemática Directa (Gráficas).}
+	\label{fig:CINEMÁTICA DIRECTA}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{cin diferencial.jpg}
+	\caption{Resultado Cinemática Diferencial.}
+	\label{fig:CINEMÁTICA DIFERENCIAL}
+\end{figure}
+
+
+	Se pudo correr de buena manera el trabajar entre \textit{RViz} y \textit{Gazebo}. En \textit{RViz} se hacía la visualización de la trayectoria que realizaría el robot, aunque, por error del controlador, no se mandaba la orden a \textit{Gazebo}.
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Proceso RViz.jpg}
+	\caption{Proceso de RViz simulado.}
+	\label{fig:RViz proceso}
+\end{figure}
+
+
+
+	Una vez exportado correctamente el modelo del brazo robótico a \textit{Gazebo} mediante el archivo \textit{URDF}, se realizaron pruebas de simulación para verificar su comportamiento cinemático y dinámico. Durante estas simulaciones se pudo observar que el brazo seguía correctamente las trayectorias definidas, confirmando que las articulaciones y enlaces fueron configurados de forma adecuada. Además, se utilizó \textit{RViz} para visualizar en tiempo real la trayectoria deseada y ejecutada por el efector final, permitiendo validar gráficamente el funcionamiento del sistema y facilitando la detección de posibles errores en la cinemática o en el control.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{RViz simulando.jpg}
+	\caption{Resultado Foto de RViz simulando la trayectoria del robot.}
+	\label{fig:RViz simulando}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{exportado gazebo.jpg}
+	\caption{Resultado Foto de Robot exportado en Gazebo.}
+	\label{fig:Robot Exportado}
+\end{figure}

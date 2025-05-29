@@ -11,8 +11,26 @@ Esta arquitectura modular y flexible, respaldada por una amplia comunidad y sopo
 
 
 \subsection{Nodo (Node)}
+En ROS, un nodo es una unidad ejecutable que realiza una tarea específica dentro del sistema robótico. Los nodos pueden representar sensores, actuadores, algoritmos de control, interfaces de usuario, entre otros. La arquitectura distribuida de ROS permite que múltiples nodos se ejecuten simultáneamente y se comuniquen entre sí, lo que promueve la modularidad y la escalabilidad del sistema. Cada nodo es independiente, lo que facilita su desarrollo, prueba y mantenimiento por separado. Por ejemplo, en la simulación de un brazo robótico, un nodo puede encargarse del cálculo de trayectorias mientras otro gestiona la interacción con el entorno simulado.
+
+
 \subsection{Tema (Topic)}
+Un tema (topic) en ROS es un canal de comunicación que permite a los nodos intercambiar mensajes de forma asíncrona mediante un modelo de publicación-suscripción. Los nodos publicadores envían datos a un tema, mientras que los nodos suscriptores reciben esa información sin necesidad de conexión directa entre ellos. Esta estrategia desacoplada mejora la eficiencia del sistema y permite la integración de nuevos nodos sin alterar la estructura existente. Por ejemplo, un nodo que calcule la posición del efector final del brazo puede publicar esa información en un tema que otro nodo, encargado de la visualización o control, puede suscribirse para actuar en consecuencia.
+
+
 \subsection{Mensaje (Message)}
+Los mensajes en ROS son estructuras de datos predefinidas que contienen la información que se transmite entre nodos a través de los temas. Estos mensajes pueden incluir datos simples como números enteros o flotantes, así como estructuras más complejas como vectores, imágenes o coordenadas espaciales. La definición clara de tipos de mensajes permite una comunicación segura y estructurada entre componentes del sistema. En el caso del brazo robótico, se pueden utilizar mensajes para transmitir información como la posición conjunta de cada articulación o el estado del electroimán.
+
+
 \subsection{Servicio (Service)}
+Los servicios en ROS proporcionan una forma de comunicación sincrónica entre nodos, permitiendo a un nodo solicitar una acción específica y esperar una respuesta. A diferencia de los temas, los servicios siguen un modelo cliente-servidor y se utilizan cuando se requiere una respuesta directa, como activar o desactivar un actuador, realizar un cálculo puntual o cambiar el modo de operación del sistema. En el contexto del brazo robótico, un servicio podría emplearse para encender o apagar el electroimán bajo demanda, o para reiniciar la simulación.
+
+
 \subsection{Gazebo}
+Gazebo es un simulador 3D de código abierto que se integra estrechamente con ROS para proporcionar un entorno virtual donde se pueden probar algoritmos de control, interacciones físicas y comportamientos de sensores. Ofrece un motor de física realista que simula la dinámica de los robots y su interacción con objetos y superficies, lo que resulta fundamental para validar el rendimiento del sistema antes de su implementación física. En este proyecto, Gazebo permitió analizar el comportamiento dinámico del brazo robótico modelado en SolidWorks, sin necesidad de construir un prototipo real, acelerando el desarrollo y reduciendo costos.
+
+
 \subsection{RViz}
+RViz (ROS Visualization) es una herramienta de visualización en tiempo real que permite representar información sensorial y de estado de los robots, facilitando la depuración y validación de algoritmos. A través de RViz, los usuarios pueden observar el modelo del robot, sus movimientos, trayectorias planificadas, sensores simulados y otros elementos clave del entorno. Esta herramienta es particularmente útil para verificar la precisión de los cálculos de cinemática y el comportamiento esperado del manipulador en la simulación, así como para identificar errores o inconsistencias en el sistema.
+
+

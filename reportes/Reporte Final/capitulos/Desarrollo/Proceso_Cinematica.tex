@@ -1,25 +1,217 @@
 \section{Proceso de Cinemática} \label{sec:proceso_cinematica}
 
-Aquí explicarán su código. Si quieren mostrar una parte, pueden hacerlo de la siguiente forma
+El siguiente fragmento de código corresponde a una parte del algoritmo de cinemática inversa utilizado para encontrar una configuración articular que permita alcanzar una posición deseada del efector final con una cierta precisión.
 
-% Si no quieres ponerle título al código, puedes dejarlo en blanco.
-\begin{matlabcode}{matlab}
-	function [q_sol, p_sol] = cinematica_inv(r, p_des, tol, max_iter, alpha, numMuestras)
-\end{matlabcode}
+\begin{lstlisting}[language=Matlab, caption={Evaluación de la tolerancia y selección de la mejor solución en la cinemática inversa}]
+	if errors(j) <= tol
+	q_sol = q_candidata;
+	r = actualizar_robot(r, q_sol);
+	p_sol = r.T(1:3,4,end);
+	if coder.target('MATLAB')
+	fprintf('Solución alcanzada en muestra %d, iteraciones %d, error = %e\n', j, i, errors(j));
+	end
+	return;
+	end
+\end{lstlisting}
 
-Pero solo háganlo en partes muy específicas (las que van a explicar en ese momento). No copien todo el código ya que eso está en GitHub.
+Esta sección verifica si el error actual de la solución candidata es menor o igual a la tolerancia predefinida (\texttt{tol}). Si se cumple esta condición, se considera que la solución ha sido encontrada con éxito:
 
-Si les sale el error \texttt{latexminted no se reconoce como un comando interno o externo, programa o archivo por lotes ejecutable}, deben tener instalado python y usar el siguiente comando.
-\begin{terminal}{bash: Instalar minted en python con pip}
-	pip install latexminted==0.5.1
-\end{terminal}
+\begin{itemize}
+	\item \texttt{q\_sol} guarda la configuración articular candidata.
+	\item \texttt{actualizar\_robot} actualiza el modelo robótico con esa configuración.
+	\item \texttt{r.T(1:3,4,end)} extrae la posición resultante del efector final.
+	\item Se imprime un mensaje si se está ejecutando en MATLAB (no durante compilación con código embebido).
+\end{itemize}
+
+Si ninguna de las soluciones candidatas logra estar dentro de la tolerancia, se selecciona la que haya producido el menor error:
+
+\begin{lstlisting}[language=Matlab, caption={Selección de la mejor solución si ninguna cumple con la tolerancia}]
+	% Si ningún candidato alcanza la tolerancia, se elige el que tenga el menor error.
+	[~, idx_best] = min(errors);
+	q_sol = q_candidatas(:, idx_best);
+	r = actualizar_robot_completo(r, q_sol);
+	p_sol = r.T(1:3,4,end);
+	if coder.target('MATLAB')
+	fprintf('Ningún candidato alcanzó la tolerancia; se elige el candidato con error = %e\n', min(errors));
+	end
+\end{lstlisting}
+
+En este bloque:
+
+\begin{itemize}
+	\item Se identifica el índice de la mejor solución (\texttt{idx\_best}) con el menor error.
+	\item Se actualiza el modelo robótico completo con esta configuración.
+	\item Se imprime una advertencia indicando que, aunque no se logró la tolerancia deseada, se seleccionó la mejor opción disponible.
+\end{itemize}
+
+Este enfoque es común en algoritmos iterativos de cinemática inversa donde no siempre es posible encontrar una solución exacta, especialmente cuando hay redundancia o restricciones físicas en el robot.
 
 \subsection{Cinemática Directa}
-Explicar las partes importantes del código de la cinemática directa.
-Para ver los resultados, ir al \autoref{chap:resultados}: Resultados, o determinada figura.
+
+
+La cinemática directa permite obtener la posición y orientación del efector final a partir de una configuración articular \( \mathbf{q}(t) \). Adicionalmente, usando el jacobiano geométrico, se pueden calcular las velocidades lineales y angulares, así como sus respectivas derivadas (aceleraciones).
+
+El siguiente fragmento de código implementa este procedimiento:
+
+\begin{lstlisting}[language=Matlab, caption={Cinemática directa, velocidades y aceleraciones}]
+	R = zeros(3,3,length(t));
+	Jv = zeros(3,robot.NGDL,length(t));
+	dJv = Jv;
+	Jw = Jv;
+	dJw = Jw;
+	dt = 0.05;
+	
+	for k = 1:length(t)
+	pos(:,k) = robot.T(1:3,4,end);
+	R(:,:,k) = robot.T(1:3,1:3,end);
+	ori(:,k) = rotMat2euler(R(:,:,k),secuencia);
+	
+	[Jv(:,:,k), Jw(:,:,k)] = jac_geometrico(robot);
+	
+	v_l(:,k) = Jv(:,:,k) * dq(:,k);
+	v_r(:,k) = Jw(:,:,k) * dq(:,k);
+	
+	if k > 1
+	dJv(:,:,k) = (Jv(:,:,k) - Jv(:,:,k-1)) / dt;
+	dJw(:,:,k) = (Jw(:,:,k) - Jw(:,:,k-1)) / dt;
+	end
+	
+	a_l(:,k) = Jv(:,:,k) * ddq(:,k) + dJv(:,:,k) * dq(:,k);
+	a_r(:,k) = Jw(:,:,k) * ddq(:,k) + dJw(:,:,k) * dq(:,k);
+	end
+\end{lstlisting}
+
+\paragraph{Descripción del procedimiento:}
+\begin{itemize}
+	\item Se recorren todas las muestras de tiempo \( t \).
+	\item En cada instante se extraen:
+	\begin{itemize}
+		\item La posición del efector final desde la matriz homogénea \( \mathbf{T} \).
+		\item La orientación, convertida de matriz de rotación a ángulos de Euler.
+	\end{itemize}
+	\item Se calculan los Jacobianos lineal \( J_v \) y angular \( J_w \) mediante la función \texttt{jac\_geometrico}.
+	\item Las velocidades lineales \( \mathbf{v}_l \) y rotacionales \( \mathbf{v}_r \) se obtienen con:
+	\[
+	\mathbf{v}_l = J_v \cdot \dot{\mathbf{q}}, \qquad \mathbf{v}_r = J_w \cdot \dot{\mathbf{q}}
+	\]
+	\item Las derivadas de los Jacobianos se aproximan con diferencias finitas:
+	\[
+	\dot{J}_v \approx \frac{J_v(k) - J_v(k-1)}{\Delta t}
+	\]
+	\item Finalmente, las aceleraciones lineales y angulares se calculan como:
+	\[
+	\mathbf{a}_l = J_v \cdot \ddot{\mathbf{q}} + \dot{J}_v \cdot \dot{\mathbf{q}}, \qquad
+	\mathbf{a}_r = J_w \cdot \ddot{\mathbf{q}} + \dot{J}_w \cdot \dot{\mathbf{q}}
+	\]
+\end{itemize}
+
+Este cálculo es útil en análisis dinámico, control de trayectoria, y generación de perfiles de movimiento en aplicaciones robóticas.
+
+
+
 \subsection{Cinemática Diferencial}
-Explicar las partes importantes del código de la cinemática diferencial.
-Para ver los resultados, ir al \autoref{chap:resultados}: Resultados, o determinada figura.
+
+Para poder analizar la cinemática diferencial de manera simbólica (es decir, sin asignar valores numéricos específicos), es necesario trabajar con expresiones simbólicas de las matrices de transformación homogénea. Esto permite posteriormente derivar analíticamente funciones como el Jacobiano.
+
+El siguiente fragmento de código muestra cómo se construyen las matrices \( \mathbf{A}_i \) para cada eslabón, diferenciando entre juntas \textbf{revolutas} y \textbf{prismáticas}:
+
+\begin{lstlisting}[language=Matlab, caption={Transformaciones homogéneas simbólicas}]
+	A = sym(zeros(4,4,n));  % Preasignar matriz simbólica
+	offset = zeros(1,n);
+	for i = 1:n
+	if tipo(i) == 'r'  % Junta revoluta
+	theta_sym = jointSymbols(i);
+	d_sym = sym(dNum(i));
+	offset(i) = thetaNum(i);
+	elseif tipo(i) == 'p'  % Junta prismática
+	theta_sym = sym(thetaNum(i));
+	d_sym = jointSymbols(i);
+	offset(i) = dNum(i);
+	end
+	a_sym = sym(aNum(i));
+	alpha_sym = sym(alphaNum(i));
+	
+	% Transformación homogénea simbólica del eslabón i
+	A(:,:,i) = simplify( ...
+	HRz(theta_sym) * HTz(d_sym) * HTx(a_sym) * HRx(alpha_sym));
+	end
+\end{lstlisting}
+
+\paragraph{Descripción del procedimiento:}
+\begin{itemize}
+	\item Se inicializa una matriz simbólica de tamaño \( 4 \times 4 \times n \).
+	\item Dependiendo del tipo de articulación:
+	\begin{itemize}
+		\item Para juntas revolutas, \( \theta \) es variable y \( d \) es fijo.
+		\item Para juntas prismáticas, \( d \) es variable y \( \theta \) es fijo.
+	\end{itemize}
+	\item Se construye la matriz de transformación homogénea usando funciones de rotación y traslación que trabajan simbólicamente:
+	\[
+	\mathbf{A}_i = HR_z(\theta_i) \cdot HT_z(d_i) \cdot HT_x(a_i) \cdot HR_x(\alpha_i)
+	\]
+\end{itemize}
+
+\paragraph{Ventajas del enfoque simbólico:}
+\begin{itemize}
+	\item Permite obtener expresiones cerradas del Jacobiano geométrico derivando simbólicamente las posiciones y orientaciones.
+	\item Facilita la validación y el análisis analítico del comportamiento cinemático del robot.
+	\item Puede emplearse para generar código optimizado para controladores o simuladores.
+\end{itemize}
+
+
 \subsection{Cinemática Inversa}
-Explicar las partes importantes del código de la cinemática inversa.
-Para ver los resultados, ir al \autoref{chap:resultados}: Resultados, o determinada figura.
+
+
+La cinemática inversa consiste en encontrar los valores articulares \( \mathbf{q} \) que permiten alcanzar una posición deseada \( \mathbf{p}_{\text{des}} \) en el espacio. Este proceso se realiza en el código mediante una combinación de muestreo aleatorio de configuraciones y un refinamiento basado en el descenso de gradiente con el jacobiano inverso.
+
+A continuación, se explica el procedimiento empleado:
+
+\begin{lstlisting}[language=Matlab, caption={Generación de configuraciones candidatas y cálculo de errores}]
+	q_candidatas = r.qMin + (diag(r.qMax - r.qMin))*X;
+	for j = 1:numMuestras
+	q_candidata = q_candidatas(:, j);
+	% Actualizar el robot con la configuración candidata y extraer posición actual
+	r = actualizar_robot(r,q_candidata);
+	p_actual = r.T(1:3,4,end);
+	e_p = p_des - p_actual;
+	errors(j) = norm(e_p);
+	end
+	[errors, idx] = sort(errors);
+	q_candidatas = q_candidatas(:, idx);
+\end{lstlisting}
+
+Primero, se generan configuraciones articulares aleatorias dentro del rango permitido por \( \mathbf{q}_{\text{min}} \) y \( \mathbf{q}_{\text{max}} \). Luego, se evalúa el error euclidiano entre la posición deseada y la posición actual para cada configuración.
+
+\begin{lstlisting}[language=Matlab, caption={Aplicación del descenso de gradiente para refinar cada configuración}]
+	for j = 1:numMuestras
+	i = 0;
+	q_candidata = q_candidatas(:, j);
+	r = actualizar_robot(r,q_candidata);
+	p_actual = r.T(1:3,4,end);
+	e_p = p_des - p_actual;
+	
+	while (errors(j) > tol) && (i < max_iter)
+	[Jv, ~] = jac_geometrico(r);  % Jacobiano traslacional
+\end{lstlisting}
+
+Luego, se aplica un ciclo de refinamiento donde se calcula el Jacobiano geométrico \( J_v \) para evaluar la relación entre los cambios articulares y el error posicional.
+
+\begin{lstlisting}[language=Matlab, caption={Corrección articular y saturación de límites}]
+	e_q = alpha + pinv(Jv) * e_p;
+	q_candidata = q_candidata + e_q;
+	q_candidata = saturar(q_candidata, r.qMin, r.qMax);
+	
+	r = actualizar_robot(r,q_candidata);
+	p_actual = r.T(1:3,4,end);
+	e_p = p_des - p_actual;
+	errors(j) = norm(e_p);
+	i = i + 1;
+	end
+	q_candidatas(:, j) = q_candidata;
+	end
+\end{lstlisting}
+
+La corrección se realiza mediante la pseudo-inversa del Jacobiano, multiplicado por el error posicional. El vector resultante se suma a la configuración actual para reducir el error. Posteriormente, se asegura que los nuevos valores se mantengan dentro de los límites permitidos mediante una función de saturación.
+
+Este enfoque combina un muestreo amplio del espacio articular con un refinamiento local basado en el gradiente, lo cual permite obtener soluciones a la cinemática inversa incluso en regiones complicadas del espacio de trabajo.
+
