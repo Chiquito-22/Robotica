@@ -1,0 +1,8 @@
+prefix=/home/chiquito22/Robotica/devel/.private/turtle_control
+
+Name: turtle_control
+Description: Description of turtle_control
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
