@@ -1,0 +1,8 @@
+controller_list:
+  - name: fake_cuerpo_controller
+    type: fake
+    joints:
+      - Joint_1
+      - Joint_2
+      - Joint_3
+      - Joint_4

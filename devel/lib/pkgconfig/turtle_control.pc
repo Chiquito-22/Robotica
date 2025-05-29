@@ -1,0 +1,1 @@
+/home/chiquito22/Robotica/devel/.private/turtle_control/lib/pkgconfig/turtle_control.pc

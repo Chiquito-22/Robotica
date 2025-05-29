@@ -1,0 +1,1 @@
+/home/chiquito22/Robotica/devel/.private/urdf2/share/urdf2/cmake/urdf2Config.cmake

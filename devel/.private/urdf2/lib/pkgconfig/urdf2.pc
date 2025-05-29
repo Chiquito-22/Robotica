@@ -1,0 +1,8 @@
+prefix=/home/chiquito22/Robotica/devel/.private/urdf2
+
+Name: urdf2
+Description: Description of urdf2
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: geometry_msgs roscpp rospy std_msgs

@@ -1,0 +1,1 @@
+/home/chiquito22/Robotica/devel/.private/muevelo/share/muevelo/cmake/mueveloConfig-version.cmake

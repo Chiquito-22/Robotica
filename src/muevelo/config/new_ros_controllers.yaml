@@ -1,0 +1,11 @@
+controller_list:
+  - name: robot_arm_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: true
+    joints:
+    - Joint_1
+    - Joint_2
+    - Joint_3
+    - Joint_4
+
