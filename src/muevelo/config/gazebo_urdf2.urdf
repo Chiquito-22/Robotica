@@ -58,7 +58,7 @@
         <parent link="eslabon_0" />
         <child link="Link_1" />
         <axis xyz="0 0 1" />
-        <limit lower="0" upper="3.142" effort="300" velocity="3" />
+        <limit lower="0" upper="3.142" effort="30" velocity="3" />
     </joint>
     <link name="link_2">
         <inertial>
@@ -87,7 +87,7 @@
         <parent link="Link_1" />
         <child link="link_2" />
         <axis xyz="0 1 0" />
-        <limit lower="-2" upper="0.3" effort="200" velocity="3" />
+        <limit lower="-2" upper="0.3" effort="20" velocity="3" />
     </joint>
     <link name="link_3">
         <inertial>
@@ -116,7 +116,7 @@
         <parent link="link_2" />
         <child link="link_3" />
         <axis xyz="0 0 -1" />
-        <limit lower="-1" upper="0.5" effort="200" velocity="3" />
+        <limit lower="-1" upper="0.5" effort="20" velocity="3" />
     </joint>
     <link name="link_4">
         <inertial>
@@ -145,7 +145,7 @@
         <parent link="link_3" />
         <child link="link_4" />
         <axis xyz="0 0 -1" />
-        <limit effort="200" velocity="3" />
+        <limit effort="20" velocity="3" />
     </joint>
     <transmission name="link_1_trans">
         <type>transmission_interface/SimpleTransmission</type>
